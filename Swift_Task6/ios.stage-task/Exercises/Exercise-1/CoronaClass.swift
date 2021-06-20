@@ -22,32 +22,35 @@ class CoronaClass {
             return desksCount - 1
         }
         studentsCount += 1
-        let result = distanse()
-        let studentDisptance = result.0 / 2
-        let startSeat =  result.1
-        let newStudentSeat = studentDisptance + startSeat
-        seats.append(newStudentSeat)
+        var minDistance = 0
+        let options = distanses()
+        var resultSeat = 0
+        for option in options {
+            let distance = option.1 - option.0
+            if distance > resultSeat {
+                minDistance = distance
+                resultSeat = option.1
+            }
+        }
+        seats.append(resultSeat)
         seats.sort(by: { $0 < $1})
-        return newStudentSeat
+        return resultSeat
      }
     
-    func distanse() -> (Int, Int) {
+    func distanses() -> [(Int, Int)] {
+        var options = [(Int, Int)]()
         var newSeats = seats
-        var resultDistanse: Int = 0
-        var startSeat: Int = 0
         for (index, seat) in newSeats.enumerated() {
             if index == newSeats.count - 1 {
                 break
             }
             let nextSeat = newSeats[index + 1]
-            var seat1 = seat == 0 ? 1 : seat
-            let distanse = nextSeat - seat1
-            if distanse > resultDistanse {
-                resultDistanse = distanse
-                startSeat = seat
-            }
+            let distanse = nextSeat - seat
+            let partDistance = distanse / 2
+            let resultSeat = seat + partDistance
+            options.append((seat, resultSeat))
         }
-        return (resultDistanse, startSeat)
+        return options
     }
      
      func leave(_ p: Int) {
