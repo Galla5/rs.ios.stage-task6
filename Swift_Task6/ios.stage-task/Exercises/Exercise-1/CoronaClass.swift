@@ -25,8 +25,8 @@ class CoronaClass {
         let result = distanse()
         let studentDisptance = result.0 / 2
         let startSeat =  result.1
-        let delta = startSeat == 0 && studentsCount == 3 ? 1 : 0
-        let newStudentSeat = studentDisptance + startSeat + delta
+//        let delta = startSeat == 0 && studentsCount == 3 ? 1 : 0
+        let newStudentSeat = studentDisptance + startSeat
         seats.append(newStudentSeat)
         seats.sort(by: { $0 < $1})
         return newStudentSeat
