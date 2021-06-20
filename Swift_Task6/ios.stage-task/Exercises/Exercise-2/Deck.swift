@@ -53,20 +53,25 @@ extension Deck {
         guard let firstCard = cards.first else { return }
         let trumpSuit = firstCard.suit
         self.trump = trumpSuit
+        self.setTrumpCards(for: trumpSuit)
+    }
+
+    public mutating func initialCardsDealForPlayers(players: [Player]) {
+        let handCardsCount = 6
+        for player in players {
+            player.hand = Array(cards.dropFirst(handCardsCount))
+            cards.removeFirst(handCardsCount)
+        }
+        
+    }
+
+    public mutating func setTrumpCards(for suit:Suit) {
         self.cards = cards.map { card -> Card in
-            if card.suit == trumpSuit {
+            if card.suit == suit {
                 return Card(suit: card.suit, value: card.value, isTrump: true)
             }
             return card
         }
-    }
-
-    public func initialCardsDealForPlayers(players: [Player]) {
-
-    }
-
-    public func setTrumpCards(for suit:Suit) {
-
     }
 }
 
