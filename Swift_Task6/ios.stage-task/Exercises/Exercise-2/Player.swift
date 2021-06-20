@@ -15,7 +15,9 @@ final class Player: PlayerBaseCompatible {
     var hand: [Card]?
 
     func checkIfCanTossWhenAttacking(card: Card) -> Bool {
-        false
+        guard let cards = hand else { return false}
+        let card = cards.first(where: { $0.value.rawValue == card.value.rawValue })
+        return card != nil
     }
 
     func checkIfCanTossWhenTossing(table: [Card: Card]) -> Bool {
