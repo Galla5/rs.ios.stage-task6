@@ -21,6 +21,16 @@ class CoronaClass {
             seats.append(desksCount - 1)
             return desksCount - 1
         }
+        if !seats.contains(0) {
+            studentsCount += 1
+            seats.append(0)
+            return 0
+        }
+        if !seats.contains(desksCount - 1) {
+            studentsCount += 1
+            seats.append(desksCount - 1)
+            return desksCount - 1
+        }
         studentsCount += 1
         var minDistance = 0
         let options = distanses()
