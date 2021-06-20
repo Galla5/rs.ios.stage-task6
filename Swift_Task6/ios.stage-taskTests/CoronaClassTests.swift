@@ -88,8 +88,8 @@ class CoronaClassTests: XCTestCase {
         seat1 = coronaClass.seat()
         seat2 = coronaClass.seat()
         seat3 = coronaClass.seat()
-//        coronaClass.leave(seat2)
-//        seat4 = coronaClass.seat()
+        coronaClass.leave(seat2)
+        seat4 = coronaClass.seat()
         XCTAssertEqual(coronaClass.seats, [0, 2, 5, 9])
     }
     
