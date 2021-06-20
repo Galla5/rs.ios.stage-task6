@@ -32,26 +32,33 @@ extension Deck {
     }
 
     public func createDeck(suits:[Suit], values:[Value]) -> [Card] {
-        var cars: [Card] = []
+        var cards: [Card] = []
         let sortedSuits = suits.sorted(by: { $0.rawValue < $1.rawValue })
         let sortedValues = values.sorted(by: { $0.rawValue < $1.rawValue })
         
         for suit in sortedSuits {
             for value in sortedValues {
                 let card = Card(suit: suit, value: value)
-                cars.append(card)
+                cards.append(card)
             }
         }
-        
-        return cars
+        return cards
     }
 
-    public func shuffle() {
-
+    public mutating func shuffle() {
+        self.cards.shuffle()
     }
 
-    public func defineTrump() {
-
+    public mutating func defineTrump() {
+        guard let firstCard = cards.first else { return }
+        let trumpSuit = firstCard.suit
+        self.trump = trumpSuit
+        self.cards = cards.map { card -> Card in
+            if card.suit == trumpSuit {
+                return Card(suit: card.suit, value: card.value, isTrump: true)
+            }
+            return card
+        }
     }
 
     public func initialCardsDealForPlayers(players: [Player]) {
