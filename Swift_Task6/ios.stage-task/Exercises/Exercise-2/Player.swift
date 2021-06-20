@@ -21,6 +21,13 @@ final class Player: PlayerBaseCompatible {
     }
 
     func checkIfCanTossWhenTossing(table: [Card: Card]) -> Bool {
-        false
+        let keysValues = table.keys.map { $0.value.rawValue }
+        let valuesValues = table.values.map { $0.value.rawValue }
+        let tableValues = keysValues + valuesValues
+        return hand?.contains(where: { tableValues.contains($0.value.rawValue) }) ?? false
+    }
+    
+    func minTrump() -> Card? {
+        return hand?.filter( { $0.isTrump }).sorted(by: { $0.value.rawValue < $1.value.rawValue}).first
     }
 }
