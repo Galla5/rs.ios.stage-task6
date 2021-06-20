@@ -44,10 +44,18 @@ struct Card: CardBaseCompatible {
 extension Card {
 
     func checkIfCanBeat(card: Card) -> Bool {
-        return false
+        if self.suit == card.suit {
+            return checkValue(card: card)
+        } else if self.isTrump && !card.isTrump {
+            return true
+        } else if !self.isTrump && card.isTrump {
+            return false
+        } else {
+            return false
+        }
     }
 
     func checkValue(card: Card) -> Bool {
-        return false
+        return self.value.rawValue > card.value.rawValue
     }
 }
